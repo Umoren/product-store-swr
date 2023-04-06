@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import Image from 'next/image';
+
 const ProductDetails = ({ id }) => {
     const { data: product, error, isLoading } = useSWR(`https://fakestoreapi.com/products/${id}`);
 
