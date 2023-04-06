@@ -7,16 +7,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const ProductList = () => {
     const { data: products, error, isLoading, loadMore, hasNextPage } = useFetch('products', 20);
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         loadMore();
     };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [handleScroll]);
+
 
     if (isLoading) {
         return <LoadingIndicator />;

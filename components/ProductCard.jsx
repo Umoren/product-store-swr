@@ -1,11 +1,15 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
 const ProductCard = ({ product }) => {
     return (
         <div className="bg-white rounded-lg shadow-md p-4">
-            <img
+            <Image
                 src={product.image}
                 alt={product.title}
-                className="w-full h-48 object-cover mb-4 rounded"
+                width={640}
+                height={640}
+                layout="responsive"
             />
             <h3 className="text-lg font-semibold mb-2">{product.title}</h3>
             <p className="text-gray-600 mb-2">{product.category}</p>

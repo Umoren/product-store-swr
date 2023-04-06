@@ -1,6 +1,7 @@
-import useFetch from "../../hooks/useFetch";
+import useSWR from 'swr'
+import Image from 'next/image';
 const ProductDetails = ({ id }) => {
-    const { data: product, error, isLoading } = useFetch(`products/${id}`);
+    const { data: product, error, isLoading } = useSWR(`https://fakestoreapi.com/products/${id}`);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -11,12 +12,14 @@ const ProductDetails = ({ id }) => {
     }
 
     return (
-        <div className="max-w-2xl mx-auto my-16 ">
+        <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl font-semibold mb-4">{product.title}</h1>
-            <img
+            <Image
                 src={product.image}
                 alt={product.title}
-                className="w-full h-64 object-cover mb-4 rounded"
+                width={640}
+                height={640}
+                layout="responsive"
             />
             <p className="text-gray-600 mb-2">{product.category}</p>
             <p className="text-xl font-bold mb-4">${product.price}</p>
@@ -27,7 +30,10 @@ const ProductDetails = ({ id }) => {
 
 export async function getServerSideProps(context) {
     const { id } = context.query;
-    return { props: { id } };
+    return {
+        props: {
+            id
+        }
+    }
 }
-
 export default ProductDetails;
